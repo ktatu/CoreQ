@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import testService from './services/test'
+import React, {useState} from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [testState, setTestState] = useState('')
+
+    testService.get().then((test) => {
+        console.log("testprint", test.hello)    
+    })
+
+    // tarvitaan .then() promise valuen saamiseksi, muuten palauttaa promisen
+    testService.asynch().then(data => setTestState(data.hello))
+
+    return (
+        <div className="App">
+        <p>Terve {testState}</p>
+        </div>
+    );
 }
 
 export default App;
