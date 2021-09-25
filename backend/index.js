@@ -1,23 +1,23 @@
-const express = require('express')
-const morgan = require('morgan')
 const cors = require('cors')
+const express = require('express')
 const fileUpload = require('express-fileupload')
+const morgan = require('morgan')
+const mongoose = require('mongoose')
 const fileUploadRouter = require('./controllers/file_upload')
-const sentry = require('@sentry/node')
 const config = require('./utils/config')
+const sentry = require('@sentry/node')
 
 const app = express()
 
 sentry.init({
-    dsn: config.SENTRY_KEY,
-    integrations: [
-      new sentry.Integrations.Http({ tracing: true }),
-    ]
-  })
+    dsn: config.SENTRY_KEY
+})
+
+mongoose.connect(config.MONGODB_URI)
 
 morgan.token('body', function (req) { return JSON.stringify(req.body) })
 
-app.use(Sentry.Handlers.requestHandler())
+app.use(sentry.Handlers.requestHandler())
 app.use(cors())
 app.use(fileUpload({
     abortOnLimit: true,
