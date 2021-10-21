@@ -3,7 +3,7 @@ const express = require('express')
 const fileUpload = require('express-fileupload')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const fileUploadRouter = require('./controllers/file_upload')
+const fileUploadRouter = require('./controllers/fileUploadRouter')
 const config = require('./utils/config')
 const sentry = require('@sentry/node')
 
@@ -21,8 +21,7 @@ app.use(sentry.Handlers.requestHandler())
 app.use(cors())
 app.use(fileUpload({
     abortOnLimit: true,
-    limits: { fileSize: 1000000 },
-    safeFileNames: true,
+    limits: { fileSize: 100000 },
     useTempFiles: true
 }))
 app.use(express.json())
