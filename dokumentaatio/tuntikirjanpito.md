@@ -8,3 +8,4 @@
 | 24.9 | 3    | tiedostojen uploadaus (aloitus) |
 | 25.9 | 2    | uploadaus, error handling (backend) |
 | 26.9 | 2    | mongodb, frontend-suunnittelu |
+| 21.10 | 2   | pientä refaktorointia, tietokantojen suunnittelua |
