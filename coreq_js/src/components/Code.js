@@ -1,0 +1,1 @@
+https://dev.to/amitchauhan/syntax-highlighting-with-prismjs-and-react-1lep
