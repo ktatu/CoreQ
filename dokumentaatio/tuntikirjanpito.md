@@ -10,3 +10,4 @@
 | 26.9 | 2    | mongodb, frontend-suunnittelu |
 | 21.10 | 2   | pientä refaktorointia, tietokantojen suunnittelua |
 | 10.1 | 1.5  | uuden frontendin aloitus, mui / prismjs opettelu |
+| 11.1 | 3.5    | taistelua webpackin kanssa, frontend suunnittelu |
