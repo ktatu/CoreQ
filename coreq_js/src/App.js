@@ -1,37 +1,17 @@
-import React, { useEffect } from "react"
-import { Container, Box } from "@mui/material"
-import Prism from "prismjs"
+import React from "react"
+import { Route, Routes } from "react-router-dom"
 
-import "./css/prism.css"
+import Layout from "./Layout"
+import ReviewTask from "./pages/ReviewTask"
 
 const App = () => {
-
-    useEffect(() => {
-        Prism.highlightAll()
-    }, [])
-
     return (
-        <Container maxWidth="md">
-            <pre>
-                <code className="language-jsx">
-                    {`
-                    return (
-                        <Container maxWidth="lg">
-                            <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
-                            <pre>
-                                <code>
-                                    
-                                </code>
-                            </pre>
-                        </Container>
-                    )
-                    `}
-                </code>
-            </pre>
-        </Container>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route path="/test" element={<ReviewTask />} />
+            </Route>
+        </Routes>
     )
 }
 
 export default App
-
-// <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
