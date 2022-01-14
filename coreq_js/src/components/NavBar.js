@@ -7,6 +7,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import Button from "@mui/material/Button"
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Divider from "@mui/material/Divider"
+
+import JoinModule from "./JoinModule.js"
+import Feedback from "./Feedback.js"
 
 const ITEM_HEIGHT = 48;
 
@@ -16,32 +20,53 @@ const menuItems = [
     "DAG555 - Java Web Development"
 ]
 
+const testModuleKeys = ["BBB123"]
+
 const NavBar = () => {
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [menuAnchorEl, setMenuAnchorEl] = useState(null)
     const [selectedModule, setSelectedModule] = useState(null)
-    const open = Boolean(anchorEl)
+
+    const [feedbackProps, setFeedbackProps] = useState({ visible: false })
+
+    const isModuleMenuOpen = Boolean(menuAnchorEl)
 
     const handleMenuClick = (event) => {
-        setAnchorEl(event.currentTarget)
+        setMenuAnchorEl(event.currentTarget)
     }
-    const handleClose = () => {
-        setAnchorEl(null)
+    const handleMenuClose = () => {
+        setMenuAnchorEl(null)
     }
-    const handleSelectedMenuItem = () => {
+    const handleSelectedMenuItem = (item) => {
+        setSelectedModule(item)
+        handleMenuClose()
+    }
+    const handleCloseFeedback = (event, reason) => {
+        if (reason === "clickaway") {
+            return
+        }
+        setFeedbackProps({ visible: false })
+    }
 
-    }
+    setInterval(() => {
+        console.log("feedback ", feedbackProps)
+    }, 3000)
 
     return (
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar variant="dense">
-                        <Button variant="contained" onClick={handleMenuClick} disableElevation endIcon={<KeyboardArrowDownIcon />}>
+                        <Button 
+                            variant="contained" 
+                            onClick={handleMenuClick} 
+                            disableElevation 
+                            endIcon={<KeyboardArrowDownIcon />}
+                        >
                             Modules
                         </Button>
                         <Menu
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
+                            anchorEl={menuAnchorEl}
+                            open={isModuleMenuOpen}
+                            onClose={handleMenuClose}
                             PaperProps={{
                                 style: {
                                     maxHeight: ITEM_HEIGHT * 4.5,
@@ -49,8 +74,23 @@ const NavBar = () => {
                                 },
                             }}
                         >
+                            <MenuItem 
+                                onKeyDown={(event) => {
+                                    event.stopPropagation()
+                                }} 
+                                style={{ 
+                                    backgroundColor: "transparent" 
+                                }}
+                            >
+                                <JoinModule setFeedbackProps={setFeedbackProps} />
+                            </MenuItem>
+                            <Divider />
                             {menuItems.map(item => (
-                                <MenuItem key={item} selected={item === selectedModule} onClick={handleClose}>
+                                <MenuItem
+                                    key={item}
+                                    selected={item === selectedModule}
+                                    onClick={(e) => handleSelectedMenuItem(item)}
+                                >
                                     {item}
                                 </MenuItem>
                                 )
@@ -59,6 +99,7 @@ const NavBar = () => {
                         <Typography variant="h6" color="inherit" component="div">
                             Photos
                         </Typography>
+                        {feedbackProps["visible"] && <Feedback message={feedbackProps.message} severity={feedbackProps.severity} handleCloseFeedback={handleCloseFeedback} />}
                     </Toolbar>
                 </AppBar>
             </Box>
