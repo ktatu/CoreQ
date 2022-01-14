@@ -12,3 +12,4 @@
 | 10.1 | 1.5  | uuden frontendin aloitus, mui / prismjs opettelu |
 | 11.1 | 3.5  | taistelua webpackin kanssa, frontend-suunnittelu |
 | 13.1 | 5    | frontend-suunnittelu, navbar, modulointi |
+| 14.1 | 2.5  | navbar |
