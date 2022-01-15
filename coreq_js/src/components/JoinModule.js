@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
+import Feedback from "./Feedback"
 
-const JoinModule = ({ setFeedbackProps }) => {
+const JoinModule = () => {
     const [moduleKeyText, setModuleKeyText] = useState("")
 
     const handleTextChange = (event) => {
@@ -14,8 +15,6 @@ const JoinModule = ({ setFeedbackProps }) => {
         if (moduleKeyText.trim().length === 0) {
             return
         }
-
-        setFeedbackProps({ visible: true, msg: "Succesfully joined", severity: "success" })
     }
 
     const JoinButton = () => {

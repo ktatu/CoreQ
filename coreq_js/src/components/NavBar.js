@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from "@mui/material/Divider"
 
 import JoinModule from "./JoinModule.js"
-import Feedback from "./Feedback.js"
+import { useOutletContext,  } from "react-router-dom"
 
 const ITEM_HEIGHT = 48;
 
@@ -26,8 +26,6 @@ const NavBar = () => {
     const [menuAnchorEl, setMenuAnchorEl] = useState(null)
     const [selectedModule, setSelectedModule] = useState(null)
 
-    const [feedbackProps, setFeedbackProps] = useState({ visible: false })
-
     const isModuleMenuOpen = Boolean(menuAnchorEl)
 
     const handleMenuClick = (event) => {
@@ -40,16 +38,6 @@ const NavBar = () => {
         setSelectedModule(item)
         handleMenuClose()
     }
-    const handleCloseFeedback = (event, reason) => {
-        if (reason === "clickaway") {
-            return
-        }
-        setFeedbackProps({ visible: false })
-    }
-
-    setInterval(() => {
-        console.log("feedback ", feedbackProps)
-    }, 3000)
 
     return (
             <Box sx={{ flexGrow: 1 }}>
@@ -82,7 +70,7 @@ const NavBar = () => {
                                     backgroundColor: "transparent" 
                                 }}
                             >
-                                <JoinModule setFeedbackProps={setFeedbackProps} />
+                                <JoinModule />
                             </MenuItem>
                             <Divider />
                             {menuItems.map(item => (
@@ -99,7 +87,6 @@ const NavBar = () => {
                         <Typography variant="h6" color="inherit" component="div">
                             Photos
                         </Typography>
-                        {feedbackProps["visible"] && <Feedback message={feedbackProps.message} severity={feedbackProps.severity} handleCloseFeedback={handleCloseFeedback} />}
                     </Toolbar>
                 </AppBar>
             </Box>
