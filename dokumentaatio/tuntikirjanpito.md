@@ -13,3 +13,4 @@
 | 11.1 | 3.5  | taistelua webpackin kanssa, frontend-suunnittelu |
 | 13.1 | 5    | frontend-suunnittelu, navbar, modulointi |
 | 14.1 | 2.5  | navbar |
+| 15.1 | 2.5  | react / react-router context (opettelu) |
