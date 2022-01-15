@@ -10,7 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from "@mui/material/Divider"
 
 import JoinModule from "./JoinModule.js"
-import { useOutletContext,  } from "react-router-dom"
 
 const ITEM_HEIGHT = 48;
 
@@ -22,7 +21,7 @@ const menuItems = [
 
 const testModuleKeys = ["BBB123"]
 
-const NavBar = () => {
+const NavBar = ({ setAlertContext }) => {
     const [menuAnchorEl, setMenuAnchorEl] = useState(null)
     const [selectedModule, setSelectedModule] = useState(null)
 
@@ -70,7 +69,7 @@ const NavBar = () => {
                                     backgroundColor: "transparent" 
                                 }}
                             >
-                                <JoinModule />
+                                <JoinModule setAlertContext={setAlertContext}/>
                             </MenuItem>
                             <Divider />
                             {menuItems.map(item => (
