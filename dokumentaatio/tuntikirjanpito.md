@@ -14,3 +14,4 @@
 | 13.1 | 5    | frontend-suunnittelu, navbar, modulointi |
 | 14.1 | 2.5  | navbar |
 | 15.1 | 2.5  | react / react-router context (opettelu) |
+| 16.1 | 1.5  | Alertit toimivat+refaktoroitu, lisää navbarin toimintoja |
