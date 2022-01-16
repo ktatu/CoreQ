@@ -8,6 +8,8 @@ const ReviewTask = () => {
 
     const testCode = `const test === 'true' ? true : false : `
 
+    console.log("render ReviewTask")
+
     return (
         <Grid container sx={{
             bgcolor: "red",

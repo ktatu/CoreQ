@@ -22,21 +22,34 @@ const menuItems = [
 const testModuleKeys = ["BBB123"]
 
 const NavBar = ({ setAlertContext }) => {
-    const [menuAnchorEl, setMenuAnchorEl] = useState(null)
-    const [selectedModule, setSelectedModule] = useState(null)
+    const [moduleMenuAnchorEl, setModuleMenuAnchorEl] = useState(null)
+    const [selectedModule, setSelectedModule] = useState("Modules")
 
-    const isModuleMenuOpen = Boolean(menuAnchorEl)
+    const isModuleMenuOpen = Boolean(moduleMenuAnchorEl)
+
+    const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState(null)
+    const [selectedTask, setSelectedTask] = useState("Tasks")
+
+    const isTaskMenuOpen = Boolean(taskMenuAnchorEl)
 
     const handleMenuClick = (event) => {
-        setMenuAnchorEl(event.currentTarget)
+        setModuleMenuAnchorEl(event.currentTarget)
     }
     const handleMenuClose = () => {
-        setMenuAnchorEl(null)
+        setModuleMenuAnchorEl(null)
     }
-    const handleSelectedMenuItem = (item) => {
+    const handleModuleSelection = (item) => {
         setSelectedModule(item)
         handleMenuClose()
     }
+    const handleTaskMenuClick = (event) => {
+        setTaskMenuAnchorEl(event.currentTarget)
+    }
+    const handleTaskMenuClose = (event) => {
+        setTaskMenuAnchorEl(null)
+    }
+
+    console.log("render NavBar")
 
     return (
             <Box sx={{ flexGrow: 1 }}>
@@ -48,10 +61,10 @@ const NavBar = ({ setAlertContext }) => {
                             disableElevation 
                             endIcon={<KeyboardArrowDownIcon />}
                         >
-                            Modules
+                            {selectedModule}
                         </Button>
                         <Menu
-                            anchorEl={menuAnchorEl}
+                            anchorEl={moduleMenuAnchorEl}
                             open={isModuleMenuOpen}
                             onClose={handleMenuClose}
                             PaperProps={{
@@ -76,16 +89,37 @@ const NavBar = ({ setAlertContext }) => {
                                 <MenuItem
                                     key={item}
                                     selected={item === selectedModule}
-                                    onClick={(e) => handleSelectedMenuItem(item)}
+                                    onClick={(e) => handleModuleSelection(item)}
                                 >
                                     {item}
                                 </MenuItem>
                                 )
                             )}
                         </Menu>
-                        <Typography variant="h6" color="inherit" component="div">
-                            Photos
-                        </Typography>
+
+                        <Divider orientation="vertical">Divider</Divider>
+
+                        <Button 
+                            variant="contained" 
+                            onClick={handleTaskMenuClick}
+                            disabled={selectedModule === "Modules"}
+                            disableElevation
+                            endIcon={<KeyboardArrowDownIcon />}
+                        >
+                            {selectedTask}
+                        </Button>
+                        <Menu
+                            anchorEl={taskMenuAnchorEl}
+                            open={isTaskMenuOpen}
+                            onClose={handleTaskMenuClose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    width: "auto",
+                                },
+                            }}
+                        >
+                        </Menu>
                     </Toolbar>
                 </AppBar>
             </Box>

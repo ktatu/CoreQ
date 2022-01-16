@@ -16,11 +16,12 @@ const Feedback = ({ message, severity, isOpen, setOpen }) => {
         setOpen(false)
     }
 
+    // refaktorointi- propsit käyttöön kuten Alertissa yläpuolella
     return (
         <Snackbar 
             anchorOrigin={{ ...position }} 
             open={isOpen} 
-            autoHideDuration={4000} 
+            autoHideDuration={5000} 
             onClose={handleClose}
         >
             <Alert 

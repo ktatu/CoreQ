@@ -14,7 +14,7 @@ const JoinModule = ({ setAlertContext }) => {
             return
         }
 
-        setAlertContext({ severity: "success", message: "Module added" })
+        setAlertContext({ severity: "success", message: `Joined module "${moduleKeyText}"` })
     }
 
     const JoinButton = () => {
