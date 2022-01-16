@@ -1,5 +1,7 @@
 # työaikakirjanpito
 
+Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 välisen ajan kirjaukset eivät suoraan näy repositoriossa (ovat kuitenkin commit-historiasssa).
+
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
 | 17.9 | 1    | projektin aloitus |
