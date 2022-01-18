@@ -1,5 +1,7 @@
 # työaikakirjanpito
 
+Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 välisen ajan kirjaukset eivät suoraan näy repositoriossa (ovat kuitenkin commit-historiasssa).
+
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
 | 17.9 | 1    | projektin aloitus |
@@ -14,3 +16,4 @@
 | 13.1 | 5    | frontend-suunnittelu, navbar, modulointi |
 | 14.1 | 2.5  | navbar |
 | 15.1 | 2.5  | react / react-router context (opettelu) |
+| 16.1 | 1.5  | Alertit toimivat+refaktoroitu, lisää navbarin toimintoja |
