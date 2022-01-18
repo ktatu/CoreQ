@@ -4,9 +4,9 @@ import SwapHorizontalCircleIcon from '@mui/icons-material/SwapHorizontalCircle'
 import { Box, Container, Divider, Grid } from "@mui/material"
 
 const ReviewTask = () => {
-    const [testWidth, setWidth] = useState(5)
+    const [testWidth, setWidth] = useState("30%")
 
-    const testCode = `const test === 'true' ? true : false : `
+    const testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
 
     console.log("render ReviewTask")
 
@@ -15,13 +15,17 @@ const ReviewTask = () => {
             bgcolor: "red",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "space-around",
+            gap: "10px",
         }}>
-            <Grid item xs={6}>
+            <Grid item sx={{
+                width: testWidth
+            }}>
                 <Code language="jsx" codeStr={testCode} />
             </Grid>
-            <Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider>
-            <Grid item>
+            <Grid item sx={{
+                width: "60%"
+            }}>
                 <Code language="jsx" codeStr={testCode} />
             </Grid>
         </Grid>

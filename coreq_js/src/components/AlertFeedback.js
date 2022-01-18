@@ -2,7 +2,7 @@ import React from "react"
 import Snackbar from "@mui/material/Snackbar"
 import MuiAlert from "@mui/material/Alert"
 
-const Alert = React.forwardRef(function Alert(props, ref) {
+const Alert = React.forwardRef((props, ref) => {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
   })
 
@@ -16,7 +16,7 @@ const Feedback = ({ message, severity, isOpen, setOpen }) => {
         setOpen(false)
     }
 
-    // refaktorointi- propsit käyttöön kuten Alertissa yläpuolella
+    // refaktorointi- propsit käyttöön kuten Alertissa yläpuolella?
     return (
         <Snackbar 
             anchorOrigin={{ ...position }} 

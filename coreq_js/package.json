@@ -25,9 +25,11 @@
         "@mui/material": "^5.2.7",
         "babel-plugin-prismjs": "^2.1.0",
         "lodash.isempty": "^4.4.0",
+        "lodash.orderby": "^4.6.0",
         "prismjs": "^1.26.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-folder-tree": "^5.0.3",
         "react-resizable": "^3.0.4",
         "react-router-dom": "^6.2.1"
     },

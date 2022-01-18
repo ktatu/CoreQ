@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
-import NavBar from "./components/NavBar"
+import NavBar from "./components/layout/NavBar"
 import isEmpty from "lodash.isempty"
 import AlertFeedback from "./components/AlertFeedback"
 

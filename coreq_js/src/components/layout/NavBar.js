@@ -1,13 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material/Typography"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import Button from "@mui/material/Button"
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from "@mui/material/Divider"
+import { useNavigate } from "react-router-dom"
 
 import JoinModule from "./JoinModule.js"
 
@@ -19,46 +19,62 @@ const menuItems = [
     "DAG555 - Java Web Development"
 ]
 
+const taskItems = [
+    "1.1 Hello World",
+    "1.2 For-loops",
+    "2.1 HashMaps and ArrayLists"
+]
+
 const testModuleKeys = ["BBB123"]
 
 const NavBar = ({ setAlertContext }) => {
     const [moduleMenuAnchorEl, setModuleMenuAnchorEl] = useState(null)
     const [selectedModule, setSelectedModule] = useState("Modules")
-
     const isModuleMenuOpen = Boolean(moduleMenuAnchorEl)
 
     const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState(null)
     const [selectedTask, setSelectedTask] = useState("Tasks")
-
     const isTaskMenuOpen = Boolean(taskMenuAnchorEl)
 
-    const handleMenuClick = (event) => {
-        setModuleMenuAnchorEl(event.currentTarget)
-    }
-    const handleMenuClose = () => {
+    //let navigate = useNavigate()
+
+    const handleModuleMenuClose = (event) => {
         setModuleMenuAnchorEl(null)
+    }
+    const handleModuleMenuClick = (event) => {
+        setModuleMenuAnchorEl(event.currentTarget)
     }
     const handleModuleSelection = (item) => {
         setSelectedModule(item)
-        handleMenuClose()
+        setTaskMenuAnchorEl(taskMenuRef.current)
+        handleModuleMenuClose()
     }
+
     const handleTaskMenuClick = (event) => {
         setTaskMenuAnchorEl(event.currentTarget)
     }
     const handleTaskMenuClose = (event) => {
         setTaskMenuAnchorEl(null)
     }
+    const handleTaskSelection = (item) => {
+        setSelectedTask(item)
+        handleTaskMenuClose()
+        // ex. /modules/ABC123/tasks/1
+        //navigate(`/modules/${selectedModule}/tasks/${selectedTask}`)
+    }
 
     console.log("render NavBar")
+
+    const taskMenuRef = useRef(null)
 
     return (
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar variant="dense">
-                        <Button 
+                        <Button
                             variant="contained" 
-                            onClick={handleMenuClick} 
-                            disableElevation 
+                            onClick={handleModuleMenuClick}
+                            disableElevation
                             endIcon={<KeyboardArrowDownIcon />}
                         >
                             {selectedModule}
@@ -66,7 +82,7 @@ const NavBar = ({ setAlertContext }) => {
                         <Menu
                             anchorEl={moduleMenuAnchorEl}
                             open={isModuleMenuOpen}
-                            onClose={handleMenuClose}
+                            onClose={handleModuleMenuClose}
                             PaperProps={{
                                 style: {
                                     maxHeight: ITEM_HEIGHT * 4.5,
@@ -84,27 +100,27 @@ const NavBar = ({ setAlertContext }) => {
                             >
                                 <JoinModule setAlertContext={setAlertContext}/>
                             </MenuItem>
-                            <Divider />
-                            {menuItems.map(item => (
-                                <MenuItem
-                                    key={item}
-                                    selected={item === selectedModule}
-                                    onClick={(e) => handleModuleSelection(item)}
-                                >
-                                    {item}
-                                </MenuItem>
-                                )
-                            )}
-                        </Menu>
+                                {menuItems.map(item => (
+                                    <MenuItem
+                                        key={item}
+                                        selected={item === selectedTask}
+                                        onClick={() => handleModuleSelection(item)}
+                                    >
+                                        {item}
+                                    </MenuItem>
+                                    )
+                                )}
+                            </Menu>
 
                         <Divider orientation="vertical">Divider</Divider>
 
-                        <Button 
+                        <Button
                             variant="contained" 
                             onClick={handleTaskMenuClick}
                             disabled={selectedModule === "Modules"}
                             disableElevation
                             endIcon={<KeyboardArrowDownIcon />}
+                            ref={taskMenuRef}
                         >
                             {selectedTask}
                         </Button>
@@ -119,6 +135,16 @@ const NavBar = ({ setAlertContext }) => {
                                 },
                             }}
                         >
+                            {taskItems.map(item => (
+                                <MenuItem
+                                    key={item}
+                                    selected={item === selectedTask}
+                                    onClick={() => handleTaskSelection(item)}
+                                >
+                                    {item}
+                                </MenuItem>
+                                )
+                            )}
                         </Menu>
                     </Toolbar>
                 </AppBar>
