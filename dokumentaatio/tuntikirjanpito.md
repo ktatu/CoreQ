@@ -17,3 +17,5 @@ Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 vä
 | 14.1 | 2.5  | navbar |
 | 15.1 | 2.5  | react / react-router context (opettelu) |
 | 16.1 | 1.5  | Alertit toimivat+refaktoroitu, lisää navbarin toimintoja |
+| 17.1 | 1.5  | navbar, refaktorointia |
+| 18.1 | 2.5  | Tiedostojen upload-näkymä | 
