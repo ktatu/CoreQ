@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom"
 import Layout from "./Layout"
 import ReviewTask from "./pages/ReviewTask"
 import Tasks from "./pages/Tasks"
+import FileTree from "./components/tasks/FileTree"
 
 const App = () => {
     return (
