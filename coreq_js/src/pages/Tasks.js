@@ -8,9 +8,9 @@ import Button from "@mui/material/Button"
 import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
 
-import orderBy from "lodash.orderby"
+import orderBy from "lodash/orderBy"
 
-import constructFileTree from "../services/constructFileTree"
+import constructFileTreeData from "../services/constructFileTree"
 
 const testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
 
@@ -24,7 +24,8 @@ const LeftPanel = ({ state, width }) => {
         }
 
         orderBy(files, "webkitRelativePath", "desc")
-        constructFileTree(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"])
+        let fileTree = constructFileTreeData()
+        setTreeData(constructFileTreeData(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"]))
     }, [files])
 
     const onFileChange = (event) => {
@@ -36,8 +37,6 @@ const LeftPanel = ({ state, width }) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
 
         let fileArray = Array.from(event.target.files)
-        console.log("fileArray ", fileArray)
-        console.log("[0] ", fileArray[0])
         setFiles(files.concat(fileArray))
     }
 
@@ -84,7 +83,7 @@ const LeftPanel = ({ state, width }) => {
                     </Button>
                 </Grid>
                 <Grid item>
-                    <FileTree readOnly={true}/>
+                    <FileTree readOnly={true} data={treeData}/>
                 </Grid>
             </div>
         )
