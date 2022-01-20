@@ -23,6 +23,9 @@ const treeState = {
 const FileTree = ({ readOnly, data }) => {
     const onTreeStateChange = (state, event) => console.log(state, event)
 
+    console.log("tree state ", treeState)
+    console.log("data FileTreessä ", data)
+
     return (
         <FolderTree
             data={data}

@@ -1,16 +1,16 @@
 const constructFileTreeData = (filePaths) => {
-    let result = [];
-    let level = {result};
+    let result = []
+    let level = { result }
 
     // https://stackoverflow.com/questions/57344694/create-a-tree-from-a-list-of-strings-containing-paths-of-files-javascript
     filePaths.forEach(path => {
         path.split('/').reduce((r, name, i, a) => {
             if(!r[name]) {
-                r[name] = {result: []};
-                r.result.push({name, children: r[name].result})
+                r[name] = {result: []}
+                r.result.push({ name, children: r[name].result })
                 }
             
-            return r[name];
+            return r[name]
         }, level)
     })
 
@@ -20,3 +20,5 @@ const constructFileTreeData = (filePaths) => {
 
     return tree
 }
+
+export default constructFileTreeData

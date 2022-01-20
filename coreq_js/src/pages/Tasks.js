@@ -24,8 +24,7 @@ const LeftPanel = ({ state, width }) => {
         }
 
         orderBy(files, "webkitRelativePath", "desc")
-        let fileTree = constructFileTreeData()
-        setTreeData(constructFileTreeData(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"]))
+        //let fileTree = constructFileTreeData()
     }, [files])
 
     const onFileChange = (event) => {
@@ -36,12 +35,41 @@ const LeftPanel = ({ state, width }) => {
     const onDirChange = (event) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
 
+        const testData = constructFileTreeData(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"])
+        setTreeData(treeData.concat(testData))
+
+        let asd = []
+        asd.push([testData])
+
+        console.log("asd ", asd)
+        setTreeData(asd)
+
+        //setTreeData(constructFileTreeData(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"]))
         let fileArray = Array.from(event.target.files)
         setFiles(files.concat(fileArray))
+
+        console.log("test data ", testData)
+        console.log("treeData ", treeData)
     }
 
     const fileCount = () => {
         console.log("files ", files)
+    }
+
+    const TestRender = () => {
+        if (treeData.length === 0) {
+            console.log("tree data oli tyhjä")
+            return <div></div>
+        }
+        console.log("treeData ei ollut tyhjä")
+        let testObject = { ...treeData[0] }
+        let testRender = testObject[0]
+        console.log("test Object [0] ", testObject[0])
+        console.log("testObject ", testObject)
+
+        return (
+            <FileTree readOnly={true} data={testRender} />
+        )
     }
 
     if (state === "upload") {
@@ -82,13 +110,23 @@ const LeftPanel = ({ state, width }) => {
                         Directory
                     </Button>
                 </Grid>
-                <Grid item>
-                    <FileTree readOnly={true} data={treeData}/>
-                </Grid>
+
+                <TestRender />
             </div>
         )
     }
 }
+
+/*
+                {treeData.forEach(dataSet => (
+                    <Grid item>
+                        <FileTree 
+                            readOnly={true}
+                            data={dataSet}
+                        />
+                    </Grid>
+                ))}
+*/
 
 const Tasks = () => {
     // ehkä reducer tähän tapaan tilantarkistusta varten
