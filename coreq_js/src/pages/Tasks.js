@@ -5,48 +5,53 @@ import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
 import Button from "@mui/material/Button"
 
+import FormControl from "@mui/material/FormControl"
+import Radio from "@mui/material/Radio"
+import RadioGroup from "@mui/material/RadioGroup"
+import FormLabel from "@mui/material/FormLabel"
+
+import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined"
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined"
+
 import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
 
 import constructFileTreeData from "../services/constructFileTree"
+import { FormControlLabel } from "@mui/material"
 
 const testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
 
 const LeftPanel = ({ state, width }) => {
     const [files, setFiles] = useState([])
     const [treeData, setTreeData] = useState([])
+    const [fileOrDir, setFileOrDir] = useState("file")
 
-    useEffect(() => {
-        if (files.length === 0) {
-            return
-        }
-
-        //orderBy(files, "webkitRelativePath", "desc")
-    }, [files])
-
-    const onFileChange = (event) => {
-        let fileArray = Array.from(event.target.files)
-        fileArray[0].directory = "test"
-        setFiles(files.concat(fileArray))
-    }
-    const onDirChange = (event) => {
+    const handleSelection = (event) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
         // tai jos treeDatan joukossa on dataSet jossa on jo sama name kuin lisättävässä hakemistossa
 
         const fileArray = Array.from(event.target.files)
 
-        let relPaths = fileArray.map(file => file.webkitRelativePath)
+        let relPaths = fileArray.map(file => {
+            const relPath = file.webkitRelativePath
+            return relPath ? relPath : file.name
+        })
+
         const trees = constructFileTreeData(relPaths)
 
         setTreeData(treeData.concat(trees))
         setFiles(files.concat(fileArray))
     }
 
+    const handleRadioToggle = (event) => {
+        setFileOrDir(event.target.value)
+    }
+
     const fileCount = () => {
         console.log("files ", files)
     }
 
-    const Folders = () => (
+    const Files = () => (
         <ul style={{
             listStyle: "none",
         }}>
@@ -80,7 +85,7 @@ const LeftPanel = ({ state, width }) => {
                     >
                         <input 
                             type="file"
-                            onChange={onFileChange}
+                            onChange={handleSelection}
                             hidden
                             multiple
                         />
@@ -95,14 +100,23 @@ const LeftPanel = ({ state, width }) => {
                             type="file"
                             directory=""
                             webkitdirectory=""
-                            onChange={onDirChange}
+                            onChange={handleSelection}
                             hidden
                         />
                         Directory
                     </Button>
                 </Grid>
+                <Grid item>
+                    <FormControl variant="standard">
+                        <FormLabel>File or directory?</FormLabel>
+                        <RadioGroup value={fileOrDir}>
+                            <FormControlLabel value="file" control={<Radio />} label={<InsertDriveFileOutlinedIcon />} />
+                            <FormControlLabel value="dir" control={<Radio />} label={<FolderOutlinedIcon />} />
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
 
-                <Folders />
+                <Files />
             </div>
         )
     }

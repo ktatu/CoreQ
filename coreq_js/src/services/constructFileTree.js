@@ -4,7 +4,7 @@ const constructFileTreeData = (filePaths) => {
     let level = { result }
 
     filePaths.forEach(path => {
-        path.split('/').reduce((r, name, i, a) => {
+        path.split("/").reduce((r, name) => {
             if(!r[name]) {
                     r[name] = {result: []}
                     r.result.push({ name, children: r[name].result })
@@ -19,7 +19,7 @@ const constructFileTreeData = (filePaths) => {
     return tree
 }
 
-// seems inefficient, reducer could probably be modified to do this
+// inefficient, reducer could probably be modified to do this
 const removeEmptyChildArrays = (tree) => {
     if (tree.children.length === 0) {
         delete tree.children
