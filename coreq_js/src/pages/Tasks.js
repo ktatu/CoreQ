@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams,  } from "react-router-dom"
+
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import Divider from "@mui/material/Divider"
@@ -7,8 +7,6 @@ import Button from "@mui/material/Button"
 
 import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
-
-import orderBy from "lodash/orderBy"
 
 import constructFileTreeData from "../services/constructFileTree"
 
@@ -23,8 +21,7 @@ const LeftPanel = ({ state, width }) => {
             return
         }
 
-        orderBy(files, "webkitRelativePath", "desc")
-        //let fileTree = constructFileTreeData()
+        //orderBy(files, "webkitRelativePath", "desc")
     }, [files])
 
     const onFileChange = (event) => {
@@ -34,43 +31,37 @@ const LeftPanel = ({ state, width }) => {
     }
     const onDirChange = (event) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
+        // tai jos treeDatan joukossa on dataSet jossa on jo sama name kuin lisättävässä hakemistossa
 
-        const testData = constructFileTreeData(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"])
-        setTreeData(treeData.concat(testData))
+        const fileArray = Array.from(event.target.files)
 
-        let asd = []
-        asd.push([testData])
+        let relPaths = fileArray.map(file => file.webkitRelativePath)
+        const trees = constructFileTreeData(relPaths)
 
-        console.log("asd ", asd)
-        setTreeData(asd)
-
-        //setTreeData(constructFileTreeData(["folder/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"]))
-        let fileArray = Array.from(event.target.files)
+        setTreeData(treeData.concat(trees))
         setFiles(files.concat(fileArray))
-
-        console.log("test data ", testData)
-        console.log("treeData ", treeData)
     }
 
     const fileCount = () => {
         console.log("files ", files)
     }
 
-    const TestRender = () => {
-        if (treeData.length === 0) {
-            console.log("tree data oli tyhjä")
-            return <div></div>
-        }
-        console.log("treeData ei ollut tyhjä")
-        let testObject = { ...treeData[0] }
-        let testRender = testObject[0]
-        console.log("test Object [0] ", testObject[0])
-        console.log("testObject ", testObject)
-
-        return (
-            <FileTree readOnly={true} data={testRender} />
-        )
-    }
+    const Folders = () => (
+        <ul style={{
+            listStyle: "none",
+        }}>
+            {treeData.map(dataSet =>
+                <li 
+                    key={dataSet.name}
+                >
+                    <FileTree
+                        readOnly={true}
+                        data={dataSet} 
+                    />
+                </li>
+            )}
+        </ul>
+    )
 
     if (state === "upload") {
         return (
@@ -111,22 +102,11 @@ const LeftPanel = ({ state, width }) => {
                     </Button>
                 </Grid>
 
-                <TestRender />
+                <Folders />
             </div>
         )
     }
 }
-
-/*
-                {treeData.forEach(dataSet => (
-                    <Grid item>
-                        <FileTree 
-                            readOnly={true}
-                            data={dataSet}
-                        />
-                    </Grid>
-                ))}
-*/
 
 const Tasks = () => {
     // ehkä reducer tähän tapaan tilantarkistusta varten
