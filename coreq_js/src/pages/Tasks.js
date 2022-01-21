@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
@@ -8,10 +8,6 @@ import Button from "@mui/material/Button"
 import FormControl from "@mui/material/FormControl"
 import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
-import FormLabel from "@mui/material/FormLabel"
-
-import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined"
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined"
 
 import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
@@ -23,55 +19,73 @@ const testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon font
 
 const LeftPanel = ({ state, width }) => {
     const [files, setFiles] = useState([])
-    const [treeData, setTreeData] = useState([])
-    const [fileOrDir, setFileOrDir] = useState("file")
+    const [fileDisplayData, setFileDisplayData] = useState([])
+    const [folderDisplayData, setFolderDisplayData] = useState([])
+
+    const [fileOrFolder, setFileOrFolder] = useState("file")
+    const isFile = fileOrFolder === "file" ? true : false
 
     const handleSelection = (event) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
         // tai jos treeDatan joukossa on dataSet jossa on jo sama name kuin lisättävässä hakemistossa
 
         const fileArray = Array.from(event.target.files)
+        let relPaths = fileArray.map(file => isFile ? file.name : file.webkitRelativePath)
 
-        let relPaths = fileArray.map(file => {
-            const relPath = file.webkitRelativePath
-            return relPath ? relPath : file.name
-        })
+        const displayData = constructFileTreeData(relPaths)
 
-        const trees = constructFileTreeData(relPaths)
+        if (isFile) {
+            setFileDisplayData(fileDisplayData.concat(displayData))
+        } else {
+            setFolderDisplayData(folderDisplayData.concat(displayData))
+        }
 
-        setTreeData(treeData.concat(trees))
         setFiles(files.concat(fileArray))
     }
 
     const handleRadioToggle = (event) => {
-        setFileOrDir(event.target.value)
+        setFileOrFolder(event.target.value)
     }
 
-    const fileCount = () => {
-        console.log("files ", files)
+    const FileList = ({ dataArray, title }) => {
+        return (
+            <div>
+                <Typography variant="h6" component="h6">{title}</Typography>
+                <ul style={{ listStyle: "none" }}>
+                    {dataArray.map(dataSet =>
+                        <li 
+                            key={dataSet.name}
+                        >
+                            <FileTree
+                                readOnly={true}
+                                data={dataSet} 
+                            />
+                        </li>
+                    )}
+                </ul>
+            </div>
+        )
     }
 
-    const Files = () => (
-        <ul style={{
-            listStyle: "none",
-        }}>
-            {treeData.map(dataSet =>
-                <li 
-                    key={dataSet.name}
-                >
-                    <FileTree
-                        readOnly={true}
-                        data={dataSet} 
-                    />
-                </li>
-            )}
-        </ul>
-    )
+    const SelectFilesButton = () => {
+        return (
+            <Button 
+                variant="contained"
+                component="label"
+            >
+                {fileOrFolder === "file"
+                    ? <input type="file" onChange={handleSelection} hidden multiple />
+                    : <input type="file" onChange={handleSelection} hidden directory="" webkitdirectory="" />
+                }
+                Select
+            </Button>
+        )
+    }
 
     if (state === "upload") {
         return (
             <div>
-                <Grid item sx={{ width: width }}>
+                <Grid item>
                     <Typography 
                         variant="h5"
                         component="div"
@@ -79,44 +93,31 @@ const LeftPanel = ({ state, width }) => {
                     >
                         Upload files to begin
                     </Typography>
-                    <Button 
-                        variant="contained"
-                        component="label"
-                    >
-                        <input 
-                            type="file"
-                            onChange={handleSelection}
-                            hidden
-                            multiple
-                        />
-                        Select
-                    </Button>
-                    <Button onClick={fileCount}>Click</Button>
-                    <Button
-                        variant="contained"
-                        component="label"
-                    >
-                        <input
-                            type="file"
-                            directory=""
-                            webkitdirectory=""
-                            onChange={handleSelection}
-                            hidden
-                        />
-                        Directory
-                    </Button>
-                </Grid>
+                </Grid> 
                 <Grid item>
-                    <FormControl variant="standard">
-                        <FormLabel>File or directory?</FormLabel>
-                        <RadioGroup value={fileOrDir}>
-                            <FormControlLabel value="file" control={<Radio />} label={<InsertDriveFileOutlinedIcon />} />
-                            <FormControlLabel value="dir" control={<Radio />} label={<FolderOutlinedIcon />} />
+                    <FormControl>
+                        <RadioGroup
+                            row
+                            value={fileOrFolder}
+                            onChange={handleRadioToggle}
+                        >
+                            <FormControlLabel
+                                value="file"
+                                control={<Radio />}
+                                label="File"
+                            />
+                            <FormControlLabel
+                                value="folder"
+                                control={<Radio />}
+                                label="Folder"
+                            />
                         </RadioGroup>
+                        <SelectFilesButton />
                     </FormControl>
                 </Grid>
 
-                <Files />
+                {(fileDisplayData.length > 0) && <FileList dataArray={fileDisplayData} title="Files" />}
+                {(folderDisplayData.length > 0) && <FileList dataArray={folderDisplayData} title="Folders" />}
             </div>
         )
     }
