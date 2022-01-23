@@ -19,5 +19,7 @@ Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 vä
 | 16.1 | 1.5  | Alertit toimivat+refaktoroitu, lisää navbarin toimintoja |
 | 17.1 | 1.5  | navbar, refaktorointia |
 | 18.1 | 2.5  | Tiedostojen upload-näkymä |
-| 19.1 | 6.5  | uploadattujen kansioiden / tiedostojen mallinnus (wip)... |
-| 20.1 | 2    | ... |
+| 19.1 | 6.5  | uploadattujen kansioiden / tiedostojen mallinnus |
+| 20.1 | 2    | jatkoa edelliseen |
+| 22.1 | 2    | projekti create-react-appiksi, backendin aloitus |
+| 23.1 | 3    | Tiedostojen upload-toiminnallisuutta |
