@@ -17,42 +17,61 @@ import { FormControlLabel } from "@mui/material"
 
 import fileRequest from "../requests/fileRequest"
 
-const testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
+let testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
 
-const LeftPanel = ({ state, width }) => {
+const LeftPanel = ({ state, width, setCode }) => {
     const [files, setFiles] = useState([])
-    const [fileDisplayData, setFileDisplayData] = useState([])
-    const [folderDisplayData, setFolderDisplayData] = useState([])
+    const [fileDisplay, setFileDisplay] = useState([])
+    const [folderDisplay, setFolderDisplay] = useState([])
 
     const [fileOrFolder, setFileOrFolder] = useState("file")
-    const isFile = fileOrFolder === "file" ? true : false
+    const isFiles = fileOrFolder === "file" ? true : false
 
-    const handleSelection = (event) => {
+    const handleSelection = async (event) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
         // tai jos treeDatan joukossa on dataSet jossa on jo sama name kuin lisättävässä hakemistossa
 
+        /*
         console.log("files ", event.target.files)
 
         const fileArray = Array.from(event.target.files)
-        let relPaths = fileArray.map(file => isFile ? file.name : file.webkitRelativePath)
+        let relPaths = fileArray.map(file => isFiles ? file.name : file.webkitRelativePath)
 
-        const displayData = constructFileTreeData(relPaths)
+        const displayData = constructFileTreeData(relPaths, isFiles)
 
-        if (isFile) {
-            setFileDisplayData(fileDisplayData.concat(displayData))
+        if (isFiles) {
+            setFileDisplay(fileDisplay.concat(displayData))
         } else {
-            setFolderDisplayData(folderDisplayData.concat(displayData))
+            setFolderDisplay(folderDisplay.concat(displayData))
         }
 
+
         setFiles(files.concat(fileArray))
+        */
+
+        const fileUploadArray = Array
+            .from(event.target.files)
+            .map(file => {
+                const relPath = isFiles ? file.name : file.webkitRelativePath
+                return { file, relPath: relPath }
+            })
+
+        const res = await fileRequest.sendFiles(fileUploadArray)
+
+        // res data on muotoa { relPath: "folder/subfolder/file.txt", fileString: "filestr"}
+        // jotain häikkää vielä kansioiden kanssa
+        console.log("rel path ", res.data[0].relPath)
+        setCode(res.data[0].fileString)
     }
 
     const handleRadioToggle = (event) => {
         setFileOrFolder(event.target.value)
     }
 
-    const handleUpload = () => {
-        fileRequest.sendFiles(files[0])
+    const handleUpload = async () => {
+        const res = await fileRequest.sendFiles(files)
+        console.log("res data ", res.data)
+        //setCode(res.data)
     }
 
     const FileList = ({ dataArray, title }) => {
@@ -126,8 +145,8 @@ const LeftPanel = ({ state, width }) => {
 
                 <Button onClick={handleUpload}>Upload</Button>
 
-                {(fileDisplayData.length > 0) && <FileList dataArray={fileDisplayData} title="Files" />}
-                {(folderDisplayData.length > 0) && <FileList dataArray={folderDisplayData} title="Folders" />}
+                {(fileDisplay.length > 0) && <FileList dataArray={fileDisplay} title="Files" />}
+                {(folderDisplay.length > 0) && <FileList dataArray={folderDisplay} title="Folders" />}
             </div>
         )
     }
@@ -151,7 +170,8 @@ const Tasks = () => {
         }}>
             <LeftPanel 
                 state={progress}
-                width={leftPanelWidth}    
+                width={leftPanelWidth}
+                setCode={setCode}
             />
 
             <Divider
@@ -165,8 +185,7 @@ const Tasks = () => {
             <Grid item sx={{
                 width: "50%"
             }}>
-                <Code 
-                    language="jsx"
+                <Code
                     codeStr={code}
                 />
             </Grid>

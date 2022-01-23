@@ -1,27 +1,42 @@
 import React, { useEffect, useState } from "react"
 
-const Code = ({ language, codeStr }) => {
-    const [code, setCode] = useState('')
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter"
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx"
+import { xonokai } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-    const testCode = true === true ? true : false
+SyntaxHighlighter.registerLanguage("jsx", jsx)
 
-    /*
-    fetch(codeAsset)
-        .then(t => {
-            console.log('------- ', t)
-            return t.text()
-        })
-        .then(txt => {
-            setCode(txt)
-            console.log('text ', txt)
-            console.log(typeof(txt))
-        })
-    */
+const Code = ({ codeStr }) => {
+    //const [code, setCode] = useState('')
+
+    //const testCode = true === true ? true : false
+
+    const handleClick = (lineNum) => {
+        console.log("click ", lineNum )
+    }
+
+    console.log("render Code")
     return (
-        <pre className="line-numbers show-language normalize-whitespace">
-            <code className={"language-"+language}>{String(codeStr)}</code>
-        </pre>
+        <SyntaxHighlighter
+            language="jsx"
+            showLineNumbers
+            wrapLines
+            style={xonokai}
+            lineProps={(lineNumber) => ({
+                onClick() {
+                    handleClick(lineNumber)
+                }
+            })}
+        >
+            {codeStr}
+        </SyntaxHighlighter>
     )
 }
 
 export default Code
+
+/*
+        <pre className="line-numbers show-language normalize-whitespace">
+            <code className={"language-"+language}>{String(codeStr)}</code>
+        </pre>
+*/

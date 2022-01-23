@@ -6,7 +6,7 @@ import 'react-folder-tree/dist/style.css'
 
 const onNameClick = ({ defaultOnClick, nodeData }) => { 
     console.log("default on click ", defaultOnClick)
-    defaultOnClick();
+    defaultOnClick()
     // täällä klikkauksella kyseinen tiedosto näkyville oikealle
     console.log("click")
     const {
@@ -32,9 +32,9 @@ const FileTree = ({ readOnly, data }) => {
             data={data}
             onChange={handleTreeStateChange}
             indentPixels={50}
-            showCheckbox={true}
+            showCheckbox={false}
             onNameClick={onNameClick}
-            readOnly={false}
+            readOnly
 
         />
     )

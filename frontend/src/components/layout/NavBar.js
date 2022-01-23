@@ -4,14 +4,14 @@ import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import Button from "@mui/material/Button"
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import Divider from "@mui/material/Divider"
 import { useNavigate } from "react-router-dom"
 
 import JoinModule from "./JoinModule.js"
 
-const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 48
 
 const menuItems = [
     "ABC123 - C programming",
@@ -149,7 +149,7 @@ const NavBar = ({ setAlertContext }) => {
                     </Toolbar>
                 </AppBar>
             </Box>
-    );
+    )
 }
 
 export default NavBar

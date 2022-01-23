@@ -38,7 +38,7 @@ const JoinModule = ({ setAlertContext }) => {
                 InputProps={{endAdornment: <JoinButton />}}
             />
         </div>
-    );
+    )
 }
 
 export default JoinModule
