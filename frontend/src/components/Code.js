@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Prism from "prismjs"
+import React, { useEffect, useState } from "react"
 
 const Code = ({ language, codeStr }) => {
     const [code, setCode] = useState('')
-
-    useEffect(() => {
-        Prism.highlightAll()
-    }, [])
 
     const testCode = true === true ? true : false
 
@@ -24,7 +19,7 @@ const Code = ({ language, codeStr }) => {
     */
     return (
         <pre className="line-numbers show-language normalize-whitespace">
-            <code className={"language-"+language}>{codeStr}</code>
+            <code className={"language-"+language}>{String(codeStr)}</code>
         </pre>
     )
 }

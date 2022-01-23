@@ -12,8 +12,10 @@ import RadioGroup from "@mui/material/RadioGroup"
 import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
 
-import constructFileTreeData from "../services/constructFileTree"
+import constructFileTreeData from "../logic/constructFileTree"
 import { FormControlLabel } from "@mui/material"
+
+import fileRequest from "../requests/fileRequest"
 
 const testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
 
@@ -28,6 +30,8 @@ const LeftPanel = ({ state, width }) => {
     const handleSelection = (event) => {
         // virheilmoitus jos yrittää lähettää tyhjän kansion
         // tai jos treeDatan joukossa on dataSet jossa on jo sama name kuin lisättävässä hakemistossa
+
+        console.log("files ", event.target.files)
 
         const fileArray = Array.from(event.target.files)
         let relPaths = fileArray.map(file => isFile ? file.name : file.webkitRelativePath)
@@ -45,6 +49,10 @@ const LeftPanel = ({ state, width }) => {
 
     const handleRadioToggle = (event) => {
         setFileOrFolder(event.target.value)
+    }
+
+    const handleUpload = () => {
+        fileRequest.sendFiles(files[0])
     }
 
     const FileList = ({ dataArray, title }) => {
@@ -116,6 +124,8 @@ const LeftPanel = ({ state, width }) => {
                     </FormControl>
                 </Grid>
 
+                <Button onClick={handleUpload}>Upload</Button>
+
                 {(fileDisplayData.length > 0) && <FileList dataArray={fileDisplayData} title="Files" />}
                 {(folderDisplayData.length > 0) && <FileList dataArray={folderDisplayData} title="Folders" />}
             </div>
@@ -128,6 +138,7 @@ const Tasks = () => {
     // https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
     const [progress, setProgress] = useState("upload")
     const [leftPanelWidth, setLeftPanelWidth] = useState("40%")
+    const [code, setCode] = useState(testCode)
 
     console.log("render Tasks")
 
@@ -156,7 +167,7 @@ const Tasks = () => {
             }}>
                 <Code 
                     language="jsx"
-                    codeStr={testCode}
+                    codeStr={code}
                 />
             </Grid>
         </Grid>

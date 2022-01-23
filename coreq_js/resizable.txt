@@ -1,9 +1,0 @@
-jaa näyttö kahtia: vasemmalla toiminnot (kirjoitetaan kommentteja, submit, etc.) 
-oikealla näkyy valitun tiedoston koodi
-
-keskellä näyttöä menee viiva, jonka avulla molempia puolia voi vetää pienemmäksi / suuremmaksi
-
-kun yhdellä puolella hoveraa, niin sen oikeaan ylälaitaan tulee nappi, jonka avulla kyseisen laidan voi asettaa fullscreeniksi
-fullscreen-tilassa oikealla ylälaidalla on nappi, jonka avulla koot palautuvat normaalitilaan (50/50)
-
-https://github.com/react-grid-layout/react-resizable
