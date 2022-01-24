@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter"
 import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx"

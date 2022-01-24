@@ -1,5 +1,5 @@
 import { CollectionsOutlined } from "@mui/icons-material"
-import React, { useState } from "react"
+import { useState } from "react"
 import FolderTree from "react-folder-tree"
 import 'react-folder-tree/dist/style.css'
 

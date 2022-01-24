@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
@@ -60,6 +60,7 @@ const LeftPanel = ({ state, width, setCode }) => {
 
         // res data on muotoa { relPath: "folder/subfolder/file.txt", fileString: "filestr"}
         // jotain häikkää vielä kansioiden kanssa
+        // res-data arrayn oliot voi lisätä jokaiseen fileTreehen
         console.log("rel path ", res.data[0].relPath)
         setCode(res.data[0].fileString)
     }
