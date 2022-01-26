@@ -57,7 +57,17 @@ const LeftPanel = ({ state, width, setCode }) => {
             })
 
         const res = await fileRequest.sendFiles(fileUploadArray)
+        const filesAsStrings = res.data
 
+        const displayData = constructFileTreeData(filesAsStrings, isFiles)
+
+        /*
+        if (isFiles) {
+            setFileDisplay(fileDisplay.concat(displayData))
+        } else {
+            setFolderDisplay(folderDisplay.concat(displayData))
+        }
+        */
         // res data on muotoa { relPath: "folder/subfolder/file.txt", fileString: "filestr"}
         // jotain häikkää vielä kansioiden kanssa
         // res-data arrayn oliot voi lisätä jokaiseen fileTreehen
