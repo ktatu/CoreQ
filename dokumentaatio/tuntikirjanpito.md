@@ -23,3 +23,4 @@ Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 vä
 | 20.1 | 2    | jatkoa edelliseen |
 | 22.1 | 2    | projekti create-react-appiksi, backendin aloitus |
 | 23.1 | 3    | Tiedostojen upload-toiminnallisuutta |
+| 25.1 | 3    | Algoritmi uploadattujen tiedostojen käsittelyyn |
