@@ -66,6 +66,5 @@ const constructFileTreeData = () => {
     console.log("result ", result)
 
 }
-constructFileTreeData()
 
 export default constructFileTreeData

@@ -1,7 +1,7 @@
 const isEmpty = require("lodash/isEmpty")
 
 /*
-example parameters for constructFileTreeData:
+example params (after handleRequestData())
 [
     { relPath: "folder/folder2/folder3/file.txt", codeStr: "---" },
     { relPath: "folder/file2.txt", codeStr: "code" }, 
@@ -26,24 +26,26 @@ return value:
 }
 */
 
-const constructFileTreeData = (fileObjs) => {
-    const dataArray = (handleRequestFileData(fileObjs))
+const constructFolderData = (fileObjs) => {
+    const dataArray = (handleRequestData(fileObjs))
 
-    let result = { name: splitArray[0].split[0] }
+    let result = { name: dataArray[0].split[0] }
 
     dataArray.forEach(obj => {
         addPathToRes(result, obj, 1)
     })
 
+    console.log("result ", result)
+
     return result
 }
 
-const handleRequestFileData = (fileData) => {
+const handleRequestData = (fileData) => {
     const array = Object
         .keys(fileData)
-        .reduce((prevArr, key) => {
+        .reduce((array, key) => {
             const fileStr = Buffer.from(fileData[key].data).toString()
-            return prevArr.concat({ relPath: key, fileString: fileStr })
+            return array.concat({ relPath: key, fileString: fileStr })
         }, [])
         .map(obj => ({ ...obj, split: obj.relPath.split("/") }))
 
@@ -71,9 +73,9 @@ const addPathToRes = (res, obj, level) => {
 
 const constructPath = (obj, level) => {
     if (obj.split.length - 1 === level) {
-        return { name: obj.split[level], codeStr: obj.codeStr }
+        return { name: obj.split[level], fileString: obj.fileString }
     }
     return { name: obj.split[level], children: [constructPath(obj, level + 1)] }
 }
 
-module.exports = constructFileTreeData
+module.exports = { constructFolderData }

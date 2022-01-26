@@ -26,11 +26,8 @@ return value:
 }
 */
 
-//const filePaths = ["folder/folder2/file1.txt", "folder/file2.txt", "folder/subfolder/file3.txt", "folder/subfolder/subfolder2/file4.txt"]
-
-//const paramArray = [{ relPath: "folder/folder2/file1.txt", codeStr: "---" }, { relPath: "folder/file2.txt", codeStr: "code code code" }]
-
 const constructFileTreeData = (fileObjs) => {
+    // each relative path is split into an array for easier and more readable handling
     const splitArray = fileObjs.map(obj => ({ ...obj, split: obj.relPath.split("/") }))    
 
     let result = { name: splitArray[0].split[0] }
@@ -39,19 +36,14 @@ const constructFileTreeData = (fileObjs) => {
         addPathToRes(result, obj, 1)
     })
 
-    //let testRes = { name: "folder", children: [{ name: "folder2", children: [{ name: "folder3", children: [{ name: "file.txt" }]} ]}]}
-    //let testParam = { relPath: "folder/folder2/folder3/file2.txt", codeStr: "code", split: ["folder", "folder2", "folder3", "file2.txt"] }
-
-    //addPathToRes(paramArray, testParam, 1)
-
-    //addPathToRes(result, splitArray[0], 1)
-
-    console.log("result ", result)
-
     return result
 }
 
-
+/*
+New paths are constructed from each files relative path.
+These paths are appended to result -object, which already has the root folder
+Level describes the current depth in the file obj's relative path, for ex. folder/folder2/file.txt has levels 0-2
+*/
 const addPathToRes = (res, obj, level) => {
     if (!res.children) {
         res.children = []

@@ -8,12 +8,10 @@ import Button from "@mui/material/Button"
 import FormControl from "@mui/material/FormControl"
 import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
+import FormControlLabel from "@mui/material/FormControlLabel"
 
 import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
-
-import constructFileTreeData from "../logic/constructFileTree"
-import { FormControlLabel } from "@mui/material"
 
 import fileRequest from "../requests/fileRequest"
 
@@ -25,54 +23,28 @@ const LeftPanel = ({ state, width, setCode }) => {
     const [folderDisplay, setFolderDisplay] = useState([])
 
     const [fileOrFolder, setFileOrFolder] = useState("file")
-    const isFiles = fileOrFolder === "file" ? true : false
+    const isIndividualFiles = fileOrFolder === "file" ? true : false
 
     const handleSelection = async (event) => {
-        // virheilmoitus jos yrittää lähettää tyhjän kansion
-        // tai jos treeDatan joukossa on dataSet jossa on jo sama name kuin lisättävässä hakemistossa
-
-        /*
-        console.log("files ", event.target.files)
-
-        const fileArray = Array.from(event.target.files)
-        let relPaths = fileArray.map(file => isFiles ? file.name : file.webkitRelativePath)
-
-        const displayData = constructFileTreeData(relPaths, isFiles)
-
-        if (isFiles) {
-            setFileDisplay(fileDisplay.concat(displayData))
-        } else {
-            setFolderDisplay(folderDisplay.concat(displayData))
-        }
-
-
-        setFiles(files.concat(fileArray))
-        */
+        // the state could (atleast in theory) change between sending data and receiving response
+        const wasFiles = isIndividualFiles
 
         const fileUploadArray = Array
             .from(event.target.files)
             .map(file => {
-                const relPath = isFiles ? file.name : file.webkitRelativePath
+                const relPath = isIndividualFiles ? file.name : file.webkitRelativePath
                 return { file, relPath: relPath }
             })
 
-        const res = await fileRequest.sendFiles(fileUploadArray)
-        const filesAsStrings = res.data
+        const resDisplayData = await fileRequest.sendFiles(fileUploadArray, isIndividualFiles)
 
-        const displayData = constructFileTreeData(filesAsStrings, isFiles)
+        console.log("res display data ", resDisplayData)
 
-        /*
-        if (isFiles) {
-            setFileDisplay(fileDisplay.concat(displayData))
+        if (wasFiles) {
+            setFileDisplay(fileDisplay.concat(...resDisplayData))
         } else {
-            setFolderDisplay(folderDisplay.concat(displayData))
+            setFolderDisplay(folderDisplay.concat(resDisplayData))
         }
-        */
-        // res data on muotoa { relPath: "folder/subfolder/file.txt", fileString: "filestr"}
-        // jotain häikkää vielä kansioiden kanssa
-        // res-data arrayn oliot voi lisätä jokaiseen fileTreehen
-        console.log("rel path ", res.data[0].relPath)
-        setCode(res.data[0].fileString)
     }
 
     const handleRadioToggle = (event) => {

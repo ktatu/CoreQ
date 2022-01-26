@@ -2,7 +2,8 @@ const express =  require("express")
 const cors = require("cors")
 const fileUpload = require("express-fileupload")
 
-const constructFileTreeData = require("./constructFileTreeData").default
+const folderConstruct = require("./utils/folderData")
+const fileConstruct = require("./utils/fileData")
 
 const app = express()
 
@@ -12,11 +13,16 @@ app.use(express.json())
 
 app.post("/api/files", (req, res) => {
 
-    const test = constructFileTreeData(req.files)
+    const isIndividualFiles = Boolean(req.query.isIndividualFiles)
+    console.log("otetaan vastaan boolean ", isIndividualFiles)
 
-    console.log("test ", test)
-
-    return res.json(test)
+    if (isIndividualFiles) {
+        console.log("files")
+        res.json(fileConstruct.constructFileData(req.files))
+    } else {
+        console.log("folder")
+        res.json(folderConstruct.constructFolderData(req.files))
+    }
 })
 
 
