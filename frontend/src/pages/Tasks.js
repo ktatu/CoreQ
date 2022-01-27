@@ -38,8 +38,6 @@ const LeftPanel = ({ state, width, setCode }) => {
 
         const resDisplayData = await fileRequest.sendFiles(fileUploadArray, isIndividualFiles)
 
-        console.log("res display data ", resDisplayData)
-
         if (wasFiles) {
             setFileDisplay(fileDisplay.concat(...resDisplayData))
         } else {
@@ -68,7 +66,8 @@ const LeftPanel = ({ state, width, setCode }) => {
                         >
                             <FileTree
                                 readOnly={true}
-                                data={dataSet} 
+                                data={dataSet}
+                                setCode={setCode}
                             />
                         </li>
                     )}

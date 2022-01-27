@@ -45,7 +45,7 @@ const handleRequestData = (fileData) => {
         .keys(fileData)
         .reduce((array, key) => {
             const fileStr = Buffer.from(fileData[key].data).toString()
-            return array.concat({ relPath: key, fileString: fileStr })
+            return array.concat({ relPath: key, fileStr: fileStr })
         }, [])
         .map(obj => ({ ...obj, split: obj.relPath.split("/") }))
 
@@ -73,7 +73,7 @@ const addPathToRes = (res, obj, level) => {
 
 const constructPath = (obj, level) => {
     if (obj.split.length - 1 === level) {
-        return { name: obj.split[level], fileString: obj.fileString }
+        return { name: obj.split[level], fileStr: obj.fileStr }
     }
     return { name: obj.split[level], children: [constructPath(obj, level + 1)] }
 }

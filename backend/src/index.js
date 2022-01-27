@@ -13,10 +13,9 @@ app.use(express.json())
 
 app.post("/api/files", (req, res) => {
 
-    const isIndividualFiles = Boolean(req.query.isIndividualFiles)
-    console.log("otetaan vastaan boolean ", isIndividualFiles)
+    const isIndividualFiles = req.query.isIndividualFiles
 
-    if (isIndividualFiles) {
+    if (isIndividualFiles === "true") {
         console.log("files")
         res.json(fileConstruct.constructFileData(req.files))
     } else {
