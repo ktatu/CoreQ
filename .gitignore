@@ -1,6 +1,5 @@
 node_modules/
 .history/
-requests/
 tmp/
 .env
 .vscode/
