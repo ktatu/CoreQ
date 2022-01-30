@@ -57,5 +57,3 @@ const NavMenu = ({ children, selectedItem, buttonDisabled, anchorEl, setAnchorEl
 }
 
 export default NavMenu
-
-*/
