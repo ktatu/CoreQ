@@ -25,3 +25,4 @@ Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 vä
 | 23.1 | 3    | Tiedostojen upload-toiminnallisuutta |
 | 25.1 | 3    | Algoritmi uploadattujen tiedostojen käsittelyyn |
 | 26.1 | 2    | Lisää upload-toiminnallisuutta |
+| 30.1 | 4    | Tiedostojenkäsittely backista fronttiin, firebase-konfigurointi |
