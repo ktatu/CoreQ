@@ -14,6 +14,7 @@ import Code from "../components/Code"
 import FileTree from "../components/tasks/FileTree"
 
 import fileRequest from "../requests/fileRequest"
+import handleInputFiles from "../logic/FileHandler"
 
 let testCode = `<Divider orientation="vertical"><SwapHorizontalCircleIcon fontSize="large" /></Divider> `
 
@@ -26,23 +27,17 @@ const LeftPanel = ({ state, width, setCode }) => {
     const isIndividualFiles = fileOrFolder === "file" ? true : false
 
     const handleSelection = async (event) => {
-        // the state could (atleast in theory) change between sending data and receiving response
-        const wasFiles = isIndividualFiles
+        const fileData = await handleInputFiles(event.target.files, isIndividualFiles)
 
-        const fileUploadArray = Array
-            .from(event.target.files)
-            .map(file => {
-                const relPath = isIndividualFiles ? file.name : file.webkitRelativePath
-                return { file, relPath: relPath }
-            })
-
-        const resDisplayData = await fileRequest.sendFiles(fileUploadArray, isIndividualFiles)
-
-        if (wasFiles) {
-            setFileDisplay(fileDisplay.concat(...resDisplayData))
+        console.log("handle selection")
+        
+        if (isIndividualFiles) {
+            setFileDisplay(fileDisplay.concat(...fileData))
         } else {
-            setFolderDisplay(folderDisplay.concat(resDisplayData))
+            setFolderDisplay(folderDisplay.concat(fileData))
         }
+
+        console.log("file display ", folderDisplay)
     }
 
     const handleRadioToggle = (event) => {
@@ -60,16 +55,20 @@ const LeftPanel = ({ state, width, setCode }) => {
             <div>
                 <Typography variant="h6" component="h6">{title}</Typography>
                 <ul style={{ listStyle: "none" }}>
-                    {dataArray.map(dataSet =>
-                        <li 
-                            key={dataSet.name}
-                        >
-                            <FileTree
-                                readOnly={true}
-                                data={dataSet}
-                                setCode={setCode}
-                            />
-                        </li>
+                    {dataArray.map(dataSet => {
+                        console.log("data set ", dataSet)
+                        return (
+                            <li 
+                                key={dataSet.name}
+                            >
+                                <FileTree
+                                    readOnly={true}
+                                    data={dataSet}
+                                    setCode={setCode}
+                                />
+                            </li>
+                        )
+                    }
                     )}
                 </ul>
             </div>

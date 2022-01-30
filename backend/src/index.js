@@ -16,10 +16,8 @@ app.post("/api/files", (req, res) => {
     const isIndividualFiles = req.query.isIndividualFiles
 
     if (isIndividualFiles === "true") {
-        console.log("files")
         res.json(fileConstruct.constructFileData(req.files))
     } else {
-        console.log("folder")
         res.json(folderConstruct.constructFolderData(req.files))
     }
 })
