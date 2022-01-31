@@ -1,4 +1,3 @@
-import constructFileData from "./fileData"
 import constructFolderData from "./folderData"
 
 const handleInputFiles = async (fileList, isIndividualFiles) => {
@@ -12,7 +11,6 @@ const handleInputFiles = async (fileList, isIndividualFiles) => {
     )
     
     if (isIndividualFiles) {
-        console.log("file array ", fileArray)
         return fileArray
     }
 

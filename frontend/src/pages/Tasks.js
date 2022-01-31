@@ -28,16 +28,12 @@ const LeftPanel = ({ state, width, setCode }) => {
 
     const handleSelection = async (event) => {
         const fileData = await handleInputFiles(event.target.files, isIndividualFiles)
-
-        console.log("handle selection")
         
         if (isIndividualFiles) {
             setFileDisplay(fileDisplay.concat(...fileData))
         } else {
             setFolderDisplay(folderDisplay.concat(fileData))
         }
-
-        console.log("file display ", folderDisplay)
     }
 
     const handleRadioToggle = (event) => {
@@ -55,15 +51,14 @@ const LeftPanel = ({ state, width, setCode }) => {
             <div>
                 <Typography variant="h6" component="h6">{title}</Typography>
                 <ul style={{ listStyle: "none" }}>
-                    {dataArray.map(dataSet => {
-                        console.log("data set ", dataSet)
+                    {dataArray.map(dataset => {
                         return (
                             <li 
-                                key={dataSet.name}
+                                key={dataset.name}
                             >
                                 <FileTree
                                     readOnly={true}
-                                    data={dataSet}
+                                    data={dataset}
                                     setCode={setCode}
                                 />
                             </li>

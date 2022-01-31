@@ -9,6 +9,9 @@ import MenuItem from '@mui/material/MenuItem'
 import Divider from "@mui/material/Divider"
 import { useNavigate } from "react-router-dom"
 
+import github_logo from "../../assets/github_logo.png"
+
+
 import JoinModule from "./JoinModule.js"
 
 const ITEM_HEIGHT = 48
@@ -114,16 +117,18 @@ const NavBar = ({ setAlertContext }) => {
 
                         <Divider orientation="vertical">Divider</Divider>
 
-                        <Button
-                            variant="contained" 
-                            onClick={handleTaskMenuClick}
-                            disabled={selectedModule === "Modules"}
-                            disableElevation
-                            endIcon={<KeyboardArrowDownIcon />}
-                            ref={taskMenuRef}
-                        >
-                            {selectedTask}
-                        </Button>
+                        <Box flexGrow={1}>
+                            <Button
+                                variant="contained" 
+                                onClick={handleTaskMenuClick}
+                                disabled={selectedModule === "Modules"}
+                                disableElevation
+                                endIcon={<KeyboardArrowDownIcon />}
+                                ref={taskMenuRef}
+                            >
+                                {selectedTask}
+                            </Button>
+                        </Box>
                         <Menu
                             anchorEl={taskMenuAnchorEl}
                             open={isTaskMenuOpen}
@@ -146,6 +151,14 @@ const NavBar = ({ setAlertContext }) => {
                                 )
                             )}
                         </Menu>
+
+                        <Button
+                            variant="contained"
+                            disableElevation
+                            endIcon={<img src={github_logo} />}
+                        >
+                            Sign in
+                        </Button>
                     </Toolbar>
                 </AppBar>
             </Box>
