@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react"
+
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
@@ -7,13 +8,14 @@ import Button from "@mui/material/Button"
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Divider from "@mui/material/Divider"
+
 import { useNavigate } from "react-router-dom"
 
 import github_logo from "../../assets/github_logo.png"
 
 import { UserContext } from "../../auth"
 
-
+import Login from "./Login"
 import JoinModule from "./JoinModule.js"
 
 const ITEM_HEIGHT = 48
@@ -158,13 +160,8 @@ const NavBar = ({ setAlertContext }) => {
                             )}
                         </Menu>
 
-                        <Button
-                            variant="contained"
-                            disableElevation
-                            endIcon={<img src={github_logo} />}
-                        >
-                            Sign in
-                        </Button>
+                        <Login />
+
                     </Toolbar>
                 </AppBar>
             </Box>
