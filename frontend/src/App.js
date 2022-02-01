@@ -3,7 +3,7 @@ import { getAnalytics } from "firebase/analytics"
 
 import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth"
 
-import { useState } from "react"
+import { UserProvider } from "./auth"
 
 import { Route, Routes } from "react-router-dom"
 
@@ -30,14 +30,17 @@ const auth = getAuth(firebase)
 
 
 const App = () => {
+
     return (
-        <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route path="test" element={<ReviewTask />} />
-                <Route path="tasks" element={<Tasks />} />
-                <Route path="logintest" element={<Login />} />
-            </Route>
-        </Routes>
+        <UserProvider>
+            <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route path="test" element={<ReviewTask />} />
+                        <Route path="tasks" element={<Tasks />} />
+                        <Route path="logintest" element={<Login />} />
+                    </Route>
+            </Routes>
+        </UserProvider>
     )
 }
 

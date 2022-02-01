@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
@@ -10,6 +10,8 @@ import Divider from "@mui/material/Divider"
 import { useNavigate } from "react-router-dom"
 
 import github_logo from "../../assets/github_logo.png"
+
+import { UserContext } from "../../auth"
 
 
 import JoinModule from "./JoinModule.js"
@@ -38,6 +40,10 @@ const NavBar = ({ setAlertContext }) => {
     const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState(null)
     const [selectedTask, setSelectedTask] = useState("Tasks")
     const isTaskMenuOpen = Boolean(taskMenuAnchorEl)
+
+    const {user} = useContext(UserContext)
+
+    console.log("user ", user)
 
     //let navigate = useNavigate()
 
