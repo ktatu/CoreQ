@@ -17,6 +17,7 @@ const Login = () => {
         if (!user) {
             signInWithPopup(auth, provider)
                 .then((result) => {
+                    console.log("result ", result)
                     // This gives you a GitHub Access Token. You can use it to access the GitHub API.
                     const credential = GithubAuthProvider.credentialFromResult(result)
                     const token = credential.accessToken
