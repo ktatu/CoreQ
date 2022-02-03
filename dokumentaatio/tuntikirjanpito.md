@@ -2,6 +2,8 @@
 
 Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 välisen ajan kirjaukset eivät suoraan näy repositoriossa (ovat kuitenkin commit-historiasssa).
 
+Yhteensä 65 h
+
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
 | 17.9 | 1    | projektin aloitus |
@@ -29,5 +31,3 @@ Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 vä
 | 31.1 | 2.5  | Autentikointi github-tunnuksilla |
 | 1.2  | 3    | Kirjautuminen käyttöliittymästä ja käyttäjän tilanhallintaa |
 | 2.5  | 2.5  | Firebasen dokumentaatio, Cloud Functions käyttöönotto |
-
-Yhteensä 65 h
