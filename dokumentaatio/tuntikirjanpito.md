@@ -28,3 +28,6 @@ Aloitin projektin puhtaalta pöydältä 2022 tammikuussa, joten 17.9 - 21.10 vä
 | 30.1 | 4    | Tiedostojenkäsittely backista fronttiin, firebase-konfigurointi |
 | 31.1 | 2.5  | Autentikointi github-tunnuksilla |
 | 1.2  | 3    | Kirjautuminen käyttöliittymästä ja käyttäjän tilanhallintaa |
+| 2.5  | 2.5  | Firebasen dokumentaatio, Cloud Functions käyttöönotto |
+
+Yhteensä 65 h
